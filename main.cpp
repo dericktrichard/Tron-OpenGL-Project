@@ -61,7 +61,7 @@ void drawTrail(const std::vector<Point>& trail, float r, float g, float b) {
     glBegin(GL_QUAD_STRIP);
     for (const auto& p : trail) {
         glColor3f(r*0.3, g*0.3, b*0.3); glVertex3f(p.x, 0.0f, p.z);
-        glColor3f(r, g, b);           glVertex3f(p.x, 1.2f, p.z); // Slightly taller walls
+        glColor3f(r, g, b);           glVertex3f(p.x, 1.2f, p.z); 
     }
     glEnd();
 }
@@ -73,7 +73,7 @@ bool isColliding(float x, float z, const std::vector<Point>& trail, bool self) {
     // Trail collision
     if (trail.size() < COLLISION_SENSITIVITY) return false;
     
-    // If checking self, skip the most recent points so we don't hit our own tail
+    // Checking self; skip the most recent points so we don't hit our own tail
     size_t limit = self ? trail.size() - COLLISION_SENSITIVITY : trail.size();
     for (size_t i = 0; i < limit; i++) {
         if (sqrt(pow(x - trail[i].x, 2) + pow(z - trail[i].z, 2)) < 0.6f) return true;
@@ -131,7 +131,7 @@ void display() {
     drawTrail(pTrail, 0.0f, 1.0f, 1.0f); // Cyan
     drawTrail(aiTrail, 1.0f, 0.2f, 0.2f); // Red
 
-    // Draw Bikes
+    // Drawn Bikes
     glPushMatrix();
     glTranslatef(pX, 0.5f, pZ); glColor3f(0, 1, 1); glutSolidCube(0.8f);
     glPopMatrix();
@@ -143,11 +143,11 @@ void display() {
     // UI Overlay
     if (gameState == LOST) {
         glColor3f(1, 0, 0);
-        drawText(330, 320, "DE-REZZED: AI WINS");
+        drawText(330, 320, "AI WINS");
         drawText(310, 280, "Press 'R' to Respawn");
     } else if (gameState == WON) {
         glColor3f(0, 1, 0);
-        drawText(350, 320, "SYSTEM CLEARED: YOU WIN!");
+        drawText(350, 320, "YOU WIN!");
         drawText(310, 280, "Press 'R' to Restart");
     }
 
